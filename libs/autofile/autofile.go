@@ -2,10 +2,8 @@ package autofile
 
 import (
 	"os"
-	"os/signal"
 	"path/filepath"
 	"sync"
-	"syscall"
 	"time"
 
 	cmtrand "github.com/tendermint/tendermint/libs/rand"
@@ -76,7 +74,7 @@ func OpenAutoFile(path string) (*AutoFile, error) {
 
 	// Close file on SIGHUP.
 	af.hupc = make(chan os.Signal, 1)
-	signal.Notify(af.hupc, syscall.SIGHUP)
+	//signal.Notify(af.hupc, syscall.SIGHUP)
 	go func() {
 		for range af.hupc {
 			_ = af.closeFile()
